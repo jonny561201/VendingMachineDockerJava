@@ -15,6 +15,9 @@ public class CoinService {
         if (coinToValidate == Dime) {
             return true;
         }
+        if (coinToValidate == Nickel) {
+            return true;
+        }
         return false;
     }
 }

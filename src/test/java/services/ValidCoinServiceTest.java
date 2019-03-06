@@ -47,4 +47,11 @@ public class ValidCoinServiceTest {
 
         assertTrue(actual);
     }
+
+    @Test
+    public void isValidCoin_ShouldReturnTruehWhenCoinIsNickel() {
+        boolean actual = coinService.isValidCoin(Nickel);
+
+        assertTrue(actual);
+    }
 }
