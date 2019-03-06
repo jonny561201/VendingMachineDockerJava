@@ -2,8 +2,7 @@ package com.services;
 
 import com.models.Coin;
 
-import static com.models.Coin.Dollar;
-import static com.models.Coin.Quarter;
+import static com.models.Coin.*;
 
 public class CoinService {
     public boolean isValidCoin(Coin coinToValidate) {
@@ -11,6 +10,9 @@ public class CoinService {
             return true;
         }
         if (coinToValidate == Quarter) {
+            return true;
+        }
+        if (coinToValidate == Dime) {
             return true;
         }
         return false;

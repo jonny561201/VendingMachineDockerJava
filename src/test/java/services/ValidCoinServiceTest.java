@@ -40,4 +40,11 @@ public class ValidCoinServiceTest {
 
         assertTrue(actual);
     }
+
+    @Test
+    public void isValidCoin_ShouldReturnTruehWhenCoinIsDime() {
+        boolean actual = coinService.isValidCoin(Dime);
+
+        assertTrue(actual);
+    }
 }
