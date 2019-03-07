@@ -6,18 +6,6 @@ import static com.models.Coin.*;
 
 public class CoinService {
     public boolean isValidCoin(Coin coinToValidate) {
-        if (coinToValidate == Dollar) {
-            return true;
-        }
-        if (coinToValidate == Quarter) {
-            return true;
-        }
-        if (coinToValidate == Dime) {
-            return true;
-        }
-        if (coinToValidate == Nickel) {
-            return true;
-        }
-        return false;
+        return ValidCoins.stream().anyMatch(x -> x.diameter == coinToValidate.diameter && x.weight == coinToValidate.weight);
     }
 }
