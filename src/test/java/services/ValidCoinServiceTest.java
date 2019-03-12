@@ -98,4 +98,14 @@ public class ValidCoinServiceTest {
 
         assertEquals(Nickel.value, actual);
     }
+
+    @Test
+    public void countChange_ShouldReturnValueForMultipleCoins() {
+        List<Coin> coins = Arrays.asList(Quarter, Dime);
+
+        BigDecimal actual = coinService.countChange(coins);
+
+        BigDecimal expected = Quarter.value.add(Dime.value);
+        assertEquals(expected, actual);
+    }
 }
