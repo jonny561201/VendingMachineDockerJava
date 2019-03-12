@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -107,5 +108,14 @@ public class ValidCoinServiceTest {
 
         BigDecimal expected = Quarter.value.add(Dime.value);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void countChange_ShouldReturnZeroWhenListEmpty() {
+        List<Coin> coins = new ArrayList<>();
+
+        BigDecimal actual = coinService.countChange(coins);
+
+        assertEquals(BigDecimal.ZERO, actual);
     }
 }

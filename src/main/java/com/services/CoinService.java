@@ -25,6 +25,9 @@ public class CoinService {
     }
 
     public BigDecimal countChange(List<Coin> coins) {
-        return coins.stream().map(x -> x.value).reduce(BigDecimal::add).get();
+        return coins.stream()
+                .map(x -> x.value)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
     }
 }
