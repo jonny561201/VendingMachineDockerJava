@@ -11,6 +11,6 @@ public class ProductService {
     }
 
     public boolean isProductAvailable(String productLocation) {
-        return false;
+        return database.getProductsByLocation(productLocation).stream().findAny().isPresent();
     }
 }
