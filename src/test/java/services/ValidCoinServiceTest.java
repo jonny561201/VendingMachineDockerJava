@@ -20,7 +20,7 @@ public class ValidCoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnFalseWhenCoinHasInvalidHeight() {
-        Coin invalidWeight = new Coin(Dollar.diameter, 99,99);
+        Coin invalidWeight = new Coin(Dollar.diameter.doubleValue(), 99,99);
 
         boolean actual = coinService.isValidCoin(invalidWeight);
 
@@ -29,7 +29,7 @@ public class ValidCoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnFalseWhenCoinHasInvalidWeight() {
-        Coin invalidWeight = new Coin(99.0, Dollar.weight, 99.0);
+        Coin invalidWeight = new Coin(99.0, Dollar.weight.doubleValue(), 99.0);
 
         boolean actual = coinService.isValidCoin(invalidWeight);
 
@@ -38,7 +38,7 @@ public class ValidCoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTrueWhenCoinIsDollar() {
-        Coin dollar = new Coin(Dollar.diameter, Dollar.weight, Dollar.value);
+        Coin dollar = new Coin(Dollar.diameter.doubleValue(), Dollar.weight.doubleValue(), Dollar.value.doubleValue());
         boolean actual = coinService.isValidCoin(dollar);
 
         assertTrue(actual);
@@ -46,7 +46,7 @@ public class ValidCoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTruehWhenCoinIsQuarter() {
-        Coin quarter = new Coin(Quarter.diameter, Quarter.weight, Quarter.value);
+        Coin quarter = new Coin(Quarter.diameter.doubleValue(), Quarter.weight.doubleValue(), Quarter.value.doubleValue());
         boolean actual = coinService.isValidCoin(quarter);
 
         assertTrue(actual);
@@ -54,7 +54,7 @@ public class ValidCoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTruehWhenCoinIsDime() {
-        Coin dime = new Coin(Dime.diameter, Dime.weight, Dime.value);
+        Coin dime = new Coin(Dime.diameter.doubleValue(), Dime.weight.doubleValue(), Dime.value.doubleValue());
         boolean actual = coinService.isValidCoin(dime);
 
         assertTrue(actual);
@@ -62,7 +62,23 @@ public class ValidCoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTrueWhenCoinIsNickel() {
-        Coin nickel = new Coin(Nickel.diameter, Nickel.weight, Nickel.value);
+        Coin nickel = new Coin(Nickel.diameter.doubleValue(), Nickel.weight.doubleValue(), Nickel.value.doubleValue());
+        boolean actual = coinService.isValidCoin(nickel);
+
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isValidCoin_ShouldReturnTrueWhenCoinWeightIsWithinMarginOfError() {
+        Coin nickel = new Coin(Nickel.diameter.doubleValue(), 21.206, Nickel.value.doubleValue());
+        boolean actual = coinService.isValidCoin(nickel);
+
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isValidCoin_ShouldReturnTrueWhenCoinDiameterIsWithinMarginOfError() {
+        Coin nickel = new Coin(4.995, Nickel.weight.doubleValue(), Nickel.value.doubleValue());
         boolean actual = coinService.isValidCoin(nickel);
 
         assertTrue(actual);
