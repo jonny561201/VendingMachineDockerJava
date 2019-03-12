@@ -5,8 +5,14 @@ import com.services.CoinService;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static com.models.Coin.*;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class ValidCoinServiceTest {
@@ -82,5 +88,14 @@ public class ValidCoinServiceTest {
         boolean actual = coinService.isValidCoin(nickel);
 
         assertTrue(actual);
+    }
+
+    @Test
+    public void countChange_ShouldReturnValueForSingleCoin() {
+        List<Coin> coins = Collections.singletonList(Nickel);
+
+        BigDecimal actual = coinService.countChange(coins);
+
+        assertEquals(Nickel.value, actual);
     }
 }
