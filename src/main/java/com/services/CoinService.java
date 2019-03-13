@@ -14,6 +14,13 @@ public class CoinService {
         return ValidCoins.stream().anyMatch(x -> hasValidDimensions(x, coinToValidate));
     }
 
+    public BigDecimal countChange(List<Coin> coins) {
+        return coins.stream()
+                .map(x -> x.value)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
+    }
+
     private boolean hasValidDimensions(Coin validCoin, Coin coinToValidate) {
         return hasValidDimension(validCoin.diameter, coinToValidate.diameter)
                 && hasValidDimension(validCoin.weight, coinToValidate.weight);
@@ -22,12 +29,5 @@ public class CoinService {
     private boolean hasValidDimension(BigDecimal validDimension, BigDecimal dimensionToCompare) {
         return validDimension.setScale(2, BigDecimal.ROUND_HALF_UP)
                 .equals(dimensionToCompare.setScale(2, BigDecimal.ROUND_HALF_UP));
-    }
-
-    public BigDecimal countChange(List<Coin> coins) {
-        return coins.stream()
-                .map(x -> x.value)
-                .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
     }
 }

@@ -21,4 +21,8 @@ public class ProductService {
                 .findFirst().get()
                 .getCost();
     }
+
+    public boolean hasSufficientFunds(BigDecimal productCost, BigDecimal funds) {
+        return funds.compareTo(productCost) > 0;
+    }
 }

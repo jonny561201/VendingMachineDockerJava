@@ -76,4 +76,24 @@ public class ProductServiceTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void hasSufficientFunds_ShouldReturnFalseWhenCostIsGreaterThanFunds() {
+        BigDecimal productCost = new BigDecimal(1.00);
+        BigDecimal funds = new BigDecimal(0.75);
+
+        boolean actual = service.hasSufficientFunds(productCost, funds);
+
+        assertFalse(actual);
+    }
+
+    @Test
+    public void hasSufficientFunds_ShouldReturnTrueWhenFundsAreGreaterThanCost() {
+        BigDecimal productCost = new BigDecimal(1.00);
+        BigDecimal funds = new BigDecimal(1.75);
+
+        boolean actual = service.hasSufficientFunds(productCost, funds);
+
+        assertTrue(actual);
+    }
 }
