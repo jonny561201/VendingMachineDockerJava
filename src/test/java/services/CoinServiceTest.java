@@ -27,7 +27,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnFalseWhenCoinHasInvalidHeight() {
-        Coin invalidWeight = new Coin(Dollar.diameter.doubleValue(), 99,99);
+        Coin invalidWeight = new Coin(DOLLAR.diameter.doubleValue(), 99,99);
 
         boolean actual = coinService.isValidCoin(invalidWeight);
 
@@ -36,7 +36,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnFalseWhenCoinHasInvalidWeight() {
-        Coin invalidWeight = new Coin(99.0, Dollar.weight.doubleValue(), 99.0);
+        Coin invalidWeight = new Coin(99.0, DOLLAR.weight.doubleValue(), 99.0);
 
         boolean actual = coinService.isValidCoin(invalidWeight);
 
@@ -45,7 +45,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTrueWhenCoinIsDollar() {
-        Coin dollar = new Coin(Dollar.diameter.doubleValue(), Dollar.weight.doubleValue(), Dollar.value.doubleValue());
+        Coin dollar = new Coin(DOLLAR.diameter.doubleValue(), DOLLAR.weight.doubleValue(), DOLLAR.value.doubleValue());
         boolean actual = coinService.isValidCoin(dollar);
 
         assertTrue(actual);
@@ -53,7 +53,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTruehWhenCoinIsQuarter() {
-        Coin quarter = new Coin(Quarter.diameter.doubleValue(), Quarter.weight.doubleValue(), Quarter.value.doubleValue());
+        Coin quarter = new Coin(QUARTER.diameter.doubleValue(), QUARTER.weight.doubleValue(), QUARTER.value.doubleValue());
         boolean actual = coinService.isValidCoin(quarter);
 
         assertTrue(actual);
@@ -61,7 +61,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTruehWhenCoinIsDime() {
-        Coin dime = new Coin(Dime.diameter.doubleValue(), Dime.weight.doubleValue(), Dime.value.doubleValue());
+        Coin dime = new Coin(DIME.diameter.doubleValue(), DIME.weight.doubleValue(), DIME.value.doubleValue());
         boolean actual = coinService.isValidCoin(dime);
 
         assertTrue(actual);
@@ -69,7 +69,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTrueWhenCoinIsNickel() {
-        Coin nickel = new Coin(Nickel.diameter.doubleValue(), Nickel.weight.doubleValue(), Nickel.value.doubleValue());
+        Coin nickel = new Coin(NICKEL.diameter.doubleValue(), NICKEL.weight.doubleValue(), NICKEL.value.doubleValue());
         boolean actual = coinService.isValidCoin(nickel);
 
         assertTrue(actual);
@@ -77,7 +77,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTrueWhenCoinWeightIsWithinMarginOfError() {
-        Coin nickel = new Coin(Nickel.diameter.doubleValue(), 21.206, Nickel.value.doubleValue());
+        Coin nickel = new Coin(NICKEL.diameter.doubleValue(), 21.206, NICKEL.value.doubleValue());
         boolean actual = coinService.isValidCoin(nickel);
 
         assertTrue(actual);
@@ -85,7 +85,7 @@ public class CoinServiceTest {
 
     @Test
     public void isValidCoin_ShouldReturnTrueWhenCoinDiameterIsWithinMarginOfError() {
-        Coin nickel = new Coin(4.995, Nickel.weight.doubleValue(), Nickel.value.doubleValue());
+        Coin nickel = new Coin(4.995, NICKEL.weight.doubleValue(), NICKEL.value.doubleValue());
         boolean actual = coinService.isValidCoin(nickel);
 
         assertTrue(actual);
@@ -93,20 +93,20 @@ public class CoinServiceTest {
 
     @Test
     public void countChange_ShouldReturnValueForSingleCoin() {
-        List<Coin> coins = Collections.singletonList(Nickel);
+        List<Coin> coins = Collections.singletonList(NICKEL);
 
         BigDecimal actual = coinService.countChange(coins);
 
-        assertEquals(Nickel.value, actual);
+        assertEquals(NICKEL.value, actual);
     }
 
     @Test
     public void countChange_ShouldReturnValueForMultipleCoins() {
-        List<Coin> coins = Arrays.asList(Quarter, Dime);
+        List<Coin> coins = Arrays.asList(QUARTER, DIME);
 
         BigDecimal actual = coinService.countChange(coins);
 
-        BigDecimal expected = Quarter.value.add(Dime.value);
+        BigDecimal expected = QUARTER.value.add(DIME.value);
         assertEquals(expected, actual);
     }
 
@@ -117,5 +117,27 @@ public class CoinServiceTest {
         BigDecimal actual = coinService.countChange(coins);
 
         assertEquals(BigDecimal.ZERO, actual);
+    }
+
+    @Test
+    public void returnCorrectChange_ShouldReturnASingleCoin() {
+        BigDecimal productCost = new BigDecimal(1.00);
+        BigDecimal funds = new BigDecimal(1.05);
+
+        List<Coin> actual = coinService.returnChange(productCost, funds);
+
+        List<Coin> expectedCoins = Collections.singletonList(NICKEL);
+        assertEquals(expectedCoins, actual);
+    }
+
+    @Test
+    public void returnCorrectChange_ShouldReturnAMultipleCoins() {
+        BigDecimal productCost = new BigDecimal(1.00);
+        BigDecimal funds = new BigDecimal(1.40);
+
+        List<Coin> actual = coinService.returnChange(productCost, funds);
+
+        List<Coin> expectedCoins = Arrays.asList(QUARTER, DIME, NICKEL);
+        assertEquals(expectedCoins, actual);
     }
 }
