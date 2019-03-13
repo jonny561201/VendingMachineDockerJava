@@ -6,12 +6,12 @@ import com.services.ProductService;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,5 +47,19 @@ public class ProductServiceTest {
         boolean actual = service.isProductAvailable(productLocation);
 
         assertTrue(actual);
+    }
+
+    @Test
+    public void getProductCost_ShouldReturnProductCost() {
+        String productLocation = "A0";
+        BigDecimal expected = new BigDecimal("0.75");
+        Product product = new Product();
+        product.setCost(expected);
+        List<Product> products = Collections.singletonList(product);
+        when(mockDatabase.getProductsByLocation(productLocation)).thenReturn(products);
+
+        BigDecimal actual = service.getProductCost(productLocation);
+
+        assertEquals(expected, actual);
     }
 }
