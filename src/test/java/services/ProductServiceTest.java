@@ -62,4 +62,18 @@ public class ProductServiceTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void getProductCost_ShouldReturnProductCostForDifferentProduct() {
+        String productLocation = "A1";
+        BigDecimal expected = new BigDecimal("0.95");
+        Product product = new Product();
+        product.setCost(expected);
+        List<Product> products = Collections.singletonList(product);
+        when(mockDatabase.getProductsByLocation(productLocation)).thenReturn(products);
+
+        BigDecimal actual = service.getProductCost(productLocation);
+
+        assertEquals(expected, actual);
+    }
 }

@@ -17,6 +17,6 @@ public class ProductService {
     }
 
     public BigDecimal getProductCost(String productLocation) {
-        return new BigDecimal("0.75");
+        return database.getProductsByLocation(productLocation).stream().findFirst().get().getCost();
     }
 }
