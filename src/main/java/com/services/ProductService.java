@@ -23,6 +23,6 @@ public class ProductService {
     }
 
     public boolean hasSufficientFunds(BigDecimal productCost, BigDecimal funds) {
-        return funds.compareTo(productCost) > 0;
+        return funds.compareTo(productCost) >= 0;
     }
 }
