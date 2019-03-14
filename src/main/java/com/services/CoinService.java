@@ -1,6 +1,7 @@
 package com.services;
 
 import com.models.Coin;
+import com.utilities.RoundValues;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,8 +28,10 @@ public class CoinService {
         List<Coin> changeToReturn = new ArrayList<>();
 
         for (Coin coin : VALID_COINS) {
-            if (coin.value.compareTo(change) < 0) {
-                change.subtract(coin.value);
+            BigDecimal roundedCoinValue = RoundValues.round(coin.value);
+            BigDecimal roundedChange = RoundValues.round(change);
+            if (roundedCoinValue.compareTo(roundedChange) <= 0) {
+                change = roundedChange.subtract(roundedCoinValue);
                 changeToReturn.add(coin);
             }
         }
@@ -41,7 +44,7 @@ public class CoinService {
     }
 
     private boolean hasValidDimension(BigDecimal validDimension, BigDecimal dimensionToCompare) {
-        return validDimension.setScale(2, BigDecimal.ROUND_HALF_UP)
-                .equals(dimensionToCompare.setScale(2, BigDecimal.ROUND_HALF_UP));
+        return RoundValues.round(validDimension)
+                .equals(RoundValues.round(dimensionToCompare));
     }
 }

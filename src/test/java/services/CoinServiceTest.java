@@ -140,4 +140,12 @@ public class CoinServiceTest {
         List<Coin> expectedCoins = Arrays.asList(QUARTER, DIME, NICKEL);
         assertEquals(expectedCoins, actual);
     }
+
+    @Test
+    public void returnCorrectChange_ShouldReturnSingleExactCoin() {
+        List<Coin> actual = coinService.returnChange(BigDecimal.ZERO, QUARTER.value);
+
+        List<Coin> expectedCoins = Arrays.asList(QUARTER);
+        assertEquals(expectedCoins, actual);
+    }
 }
