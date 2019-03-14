@@ -4,10 +4,8 @@ import com.models.Coin;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static com.models.Coin.DOLLAR;
 import static com.models.Coin.VALID_COINS;
 
 public class CoinService {
