@@ -29,9 +29,8 @@ public class CoinService {
 
         for (Coin coin : VALID_COINS) {
             BigDecimal roundedCoinValue = RoundValues.round(coin.value);
-            BigDecimal roundedChange = RoundValues.round(change);
-            if (roundedCoinValue.compareTo(roundedChange) <= 0) {
-                change = roundedChange.subtract(roundedCoinValue);
+            while(roundedCoinValue.compareTo(RoundValues.round(change)) <= 0) {
+                change = RoundValues.round(change).subtract(roundedCoinValue);
                 changeToReturn.add(coin);
             }
         }

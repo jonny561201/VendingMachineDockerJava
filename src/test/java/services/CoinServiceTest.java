@@ -145,7 +145,18 @@ public class CoinServiceTest {
     public void returnCorrectChange_ShouldReturnSingleExactCoin() {
         List<Coin> actual = coinService.returnChange(BigDecimal.ZERO, QUARTER.value);
 
-        List<Coin> expectedCoins = Arrays.asList(QUARTER);
+        List<Coin> expectedCoins = Collections.singletonList(QUARTER);
+        assertEquals(expectedCoins, actual);
+    }
+
+    @Test
+    public void returnCorrectChange_ShouldReturnAMultipleCoinsOfDuplicateDenominations() {
+        BigDecimal productCost = new BigDecimal(1.00);
+        BigDecimal funds = new BigDecimal(1.75);
+
+        List<Coin> actual = coinService.returnChange(productCost, funds);
+
+        List<Coin> expectedCoins = Arrays.asList(QUARTER, QUARTER, QUARTER);
         assertEquals(expectedCoins, actual);
     }
 }
