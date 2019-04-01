@@ -5,6 +5,7 @@ import com.models.VendProduct;
 import com.services.CoinService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VendingMachineController {
     private CoinService coinService;
@@ -14,7 +15,10 @@ public class VendingMachineController {
     }
 
     public VendProduct purchase(String productSelection, List<Coin> coins) {
-        coinService.countChange(coins);
+        List<Coin> validCoins = coins.stream()
+                .filter(CoinService::isValidCoin)
+                .collect(Collectors.toList());
+        coinService.countChange(validCoins);
 
         return null;
     }
