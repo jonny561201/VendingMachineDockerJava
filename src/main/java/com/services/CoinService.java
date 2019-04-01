@@ -12,7 +12,7 @@ import static com.models.Coin.VALID_COINS;
 public class CoinService {
 
 
-    public boolean isValidCoin(Coin coinToValidate) {
+    public static boolean isValidCoin(Coin coinToValidate) {
         return VALID_COINS.stream().anyMatch(x -> hasValidDimensions(x, coinToValidate));
     }
 
@@ -37,12 +37,12 @@ public class CoinService {
         return changeToReturn;
     }
 
-    private boolean hasValidDimensions(Coin validCoin, Coin coinToValidate) {
+    private static boolean hasValidDimensions(Coin validCoin, Coin coinToValidate) {
         return hasValidDimension(validCoin.diameter, coinToValidate.diameter)
                 && hasValidDimension(validCoin.weight, coinToValidate.weight);
     }
 
-    private boolean hasValidDimension(BigDecimal validDimension, BigDecimal dimensionToCompare) {
+    private static boolean hasValidDimension(BigDecimal validDimension, BigDecimal dimensionToCompare) {
         return RoundValues.round(validDimension)
                 .equals(RoundValues.round(dimensionToCompare));
     }

@@ -29,7 +29,7 @@ public class CoinServiceTest {
     public void isValidCoin_ShouldReturnFalseWhenCoinHasInvalidHeight() {
         Coin invalidWeight = new Coin(DOLLAR.diameter.doubleValue(), 99,99);
 
-        boolean actual = coinService.isValidCoin(invalidWeight);
+        boolean actual = CoinService.isValidCoin(invalidWeight);
 
         assertFalse(actual);
     }
