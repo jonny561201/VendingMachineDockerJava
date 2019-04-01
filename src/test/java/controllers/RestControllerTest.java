@@ -21,12 +21,12 @@ public class RestControllerTest {
     @LocalServerPort
     private int port;
 
-    TestRestTemplate restTemplate = new TestRestTemplate();
-    HttpHeaders headers = new HttpHeaders();
+    private TestRestTemplate restTemplate = new TestRestTemplate();
+    private HttpHeaders headers = new HttpHeaders();
 
     @Test
     public void getProduct_ShouldReturnHelloWorld() {
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/test"),
