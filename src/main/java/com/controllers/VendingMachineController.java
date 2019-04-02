@@ -24,6 +24,7 @@ public class VendingMachineController {
                 .collect(Collectors.toList());
         BigDecimal funds = coinService.countChange(validCoins);
 
+        productService.isProductAvailable(productSelection);
         BigDecimal productCost = productService.getProductCost(productSelection);
         if (!productService.hasSufficientFunds(productCost, funds)) {
             VendProduct vendProduct = new VendProduct();

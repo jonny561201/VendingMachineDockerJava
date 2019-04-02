@@ -61,6 +61,16 @@ public class VendingMachineControllerTest {
     }
 
     @Test
+    public void purchase_ShouldCallServiceToValidateProductAvailability() {
+        List<Coin> coins = Collections.singletonList(DIME);
+        String productLocation = "C4";
+
+        controller.purchase(productLocation, coins);
+
+        verify(productService, times(1)).isProductAvailable(productLocation);
+    }
+
+    @Test
     public void purchase_ShouldCallServiceSufficientFunds() {
         List<Coin> coins = Arrays.asList(DIME, DOLLAR);
         String productLocation = "C4";
