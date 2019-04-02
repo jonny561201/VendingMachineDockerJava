@@ -15,8 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.models.Coin.DOLLAR;
-import static com.models.Coin.QUARTER;
+import static com.models.Coin.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -37,7 +36,7 @@ public class VendingMachineControllerIT {
     }
 
     @Test
-    public void purchase_ShoulReturnErrorMessageWhenInsufficientFundsSupplied() {
+    public void purchase_ShouldReturnErrorMessageWhenInsufficientFundsSupplied() {
         List<Coin> coins = Arrays.asList(DOLLAR, QUARTER);
         String productLocation = "G3";
         Product product = new Product();
@@ -47,5 +46,16 @@ public class VendingMachineControllerIT {
         VendProduct actual = controller.purchase(productLocation, coins);
 
         assertEquals("Insufficient Funds", actual.getMessage());
+    }
+
+    @Test
+    public void purchase_ShouldReturnErrorMessageWhenProductUnavailable() {
+        List<Coin> coins = Arrays.asList(QUARTER, DIME);
+        String productLocation = "B2";
+        when(database.getProductsByLocation(productLocation)).thenReturn(Collections.emptyList());
+        
+        VendProduct actual = controller.purchase(productLocation, coins);
+
+        assertEquals("Product Unavailable", actual.getMessage());
     }
 }
