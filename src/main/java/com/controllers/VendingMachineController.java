@@ -5,6 +5,7 @@ import com.models.VendProduct;
 import com.services.CoinService;
 import com.services.ProductService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,10 @@ public class VendingMachineController {
         List<Coin> validCoins = coins.stream()
                 .filter(CoinService::isValidCoin)
                 .collect(Collectors.toList());
-        coinService.countChange(validCoins);
+        BigDecimal funds = coinService.countChange(validCoins);
 
-        productService.getProductCost(productSelection);
+        BigDecimal productCost = productService.getProductCost(productSelection);
+        productService.hasSufficientFunds(productCost, funds);
 
         return null;
     }

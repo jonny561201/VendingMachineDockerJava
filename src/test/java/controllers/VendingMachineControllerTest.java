@@ -8,6 +8,7 @@ import com.services.ProductService;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -57,5 +58,19 @@ public class VendingMachineControllerTest {
         controller.purchase(productLocation, coins);
 
         verify(productService, times(1)).getProductCost(productLocation);
+    }
+
+    @Test
+    public void purchase_ShouldCallServiceSufficientFunds() {
+        List<Coin> coins = Arrays.asList(DIME, DOLLAR);
+        String productLocation = "C4";
+        BigDecimal funds = new BigDecimal(1.15);
+        when(coinService.countChange(coins)).thenReturn(funds);
+        BigDecimal productCost = new BigDecimal(1.10);
+        when(productService.getProductCost(productLocation)).thenReturn(productCost);
+
+        controller.purchase(productLocation, coins);
+
+        verify(productService, times(1)).hasSufficientFunds(productCost, funds);
     }
 }
