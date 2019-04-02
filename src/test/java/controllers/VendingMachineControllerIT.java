@@ -1,25 +1,26 @@
 package controllers;
 
+import com.Database.ProductDatabase;
 import com.controllers.VendingMachineController;
-import com.models.Coin;
 import com.services.CoinService;
+import com.services.ProductService;
 import org.junit.Before;
-import org.junit.Test;
 
-import java.util.Collections;
-import java.util.List;
-
-import static com.models.Coin.DOLLAR;
+import static org.mockito.Mockito.mock;
 
 public class VendingMachineControllerIT {
 
     private CoinService coinService;
+    private ProductDatabase database;
+    private ProductService productService;
     private VendingMachineController controller;
 
     @Before
     public void Setup() {
         coinService = new CoinService();
-        controller = new VendingMachineController(coinService);
+        database = mock(ProductDatabase.class);
+        productService = new ProductService(database);
+        controller = new VendingMachineController(coinService, productService);
     }
 
 

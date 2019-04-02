@@ -4,6 +4,7 @@ import com.controllers.VendingMachineController;
 import com.models.Coin;
 import com.models.VendProduct;
 import com.services.CoinService;
+import com.services.ProductService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,19 +12,20 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.models.Coin.DOLLAR;
-import static com.models.Coin.QUARTER;
+import static com.models.Coin.*;
 import static org.mockito.Mockito.*;
 
 public class VendingMachineControllerTest {
 
     private CoinService coinService;
+    private ProductService productService;
     private VendingMachineController controller;
 
     @Before
     public void Setup() {
         coinService = mock(CoinService.class);
-        controller = new VendingMachineController(coinService);
+        productService = mock(ProductService.class);
+        controller = new VendingMachineController(coinService, productService);
     }
 
     @Test
@@ -31,7 +33,7 @@ public class VendingMachineControllerTest {
         String productSelection = "B4";
         List<Coin> coins = Collections.singletonList(QUARTER);
 
-        VendProduct actual = controller.purchase(productSelection, coins);
+        controller.purchase(productSelection, coins);
 
         verify(coinService, times(1)).countChange(coins);
     }
@@ -45,5 +47,15 @@ public class VendingMachineControllerTest {
         controller.purchase(productLocation, coins);
 
         verify(coinService, times(1)).countChange(Collections.singletonList(DOLLAR));
+    }
+
+    @Test
+    public void purchase_ShouldCallServiceToValidateProductCost() {
+        List<Coin> coins = Collections.singletonList(DIME);
+        String productLocation = "C4";
+
+        controller.purchase(productLocation, coins);
+
+        verify(productService, times(1)).getProductCost(productLocation);
     }
 }
