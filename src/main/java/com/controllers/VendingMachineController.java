@@ -36,6 +36,7 @@ public class VendingMachineController {
         }
         List<Coin> change = coinService.returnChange(productCost, funds);
         vendProduct.setChange(change);
+        vendProduct.setProduct(productService.selectedProduct);
         vendProduct.setMessage("Thank You!");
 
         return vendProduct;
