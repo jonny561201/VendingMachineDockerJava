@@ -73,4 +73,18 @@ public class VendingMachineControllerIT {
         List<Coin> expected = Collections.singletonList(DIME);
         assertEquals(expected, actual.getChange());
     }
+
+    @Test
+    public void purchase_ShouldReturnSuccessMessageWhenProductIsAbleToBePurchased() {
+        String productLocation = "D5";
+        List<Coin> coins = Arrays.asList(DIME, QUARTER);
+        Product product = new Product();
+        product.setCost(QUARTER.value);
+        List<Product> products = Collections.singletonList(product);
+        when(database.getProductsByLocation(productLocation)).thenReturn(products);
+
+        VendProduct actual = controller.purchase(productLocation, coins);
+
+        assertEquals("Thank You!", actual.getMessage());
+    }
 }
