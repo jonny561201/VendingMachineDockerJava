@@ -53,9 +53,24 @@ public class VendingMachineControllerIT {
         List<Coin> coins = Arrays.asList(QUARTER, DIME);
         String productLocation = "B2";
         when(database.getProductsByLocation(productLocation)).thenReturn(Collections.emptyList());
-        
+
         VendProduct actual = controller.purchase(productLocation, coins);
 
         assertEquals("Product Unavailable", actual.getMessage());
+    }
+
+    @Test
+    public void purchase_ShouldReturnChangeWhenProductIsAbleToBePurchased() {
+        String productLocation = "D5";
+        List<Coin> coins = Arrays.asList(DIME, QUARTER);
+        Product product = new Product();
+        product.setCost(QUARTER.value);
+        List<Product> products = Collections.singletonList(product);
+        when(database.getProductsByLocation(productLocation)).thenReturn(products);
+
+        VendProduct actual = controller.purchase(productLocation, coins);
+
+        List<Coin> expected = Collections.singletonList(DIME);
+        assertEquals(expected, actual.getChange());
     }
 }

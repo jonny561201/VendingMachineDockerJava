@@ -34,8 +34,9 @@ public class VendingMachineController {
             vendProduct.setMessage("Insufficient Funds");
             return vendProduct;
         }
-        coinService.returnChange(productCost, funds);
+        List<Coin> change = coinService.returnChange(productCost, funds);
+        vendProduct.setChange(change);
 
-        return null;
+        return vendProduct;
     }
 }
