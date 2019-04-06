@@ -12,8 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ProductServiceTest {
 
@@ -75,6 +74,20 @@ public class ProductServiceTest {
         BigDecimal actual = service.getProductCost(productLocation);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getProductCost_ShouldNotCallDatabaseIfCostCached() {
+        String productLocation = "A4";
+        BigDecimal cost = new BigDecimal(0.50);
+        Product product = new Product();
+        product.setCost(cost);
+        service.selectedProduct = product;
+
+        BigDecimal actual = service.getProductCost(productLocation);
+
+        verify(mockDatabase, times(0)).getProductsByLocation(productLocation);
+        assertEquals(cost, actual);
     }
 
     @Test
