@@ -19,22 +19,22 @@ public class VendingMachineController {
     }
 
     public VendProduct purchase(String productSelection, List<Coin> coins) {
+        VendProduct vendProduct = new VendProduct();
         List<Coin> validCoins = coins.stream()
                 .filter(CoinService::isValidCoin)
                 .collect(Collectors.toList());
         BigDecimal funds = coinService.countChange(validCoins);
 
         if(!productService.isProductAvailable(productSelection)) {
-            VendProduct product = new VendProduct();
-            product.setMessage("Product Unavailable");
-            return product;
+            vendProduct.setMessage("Product Unavailable");
+            return vendProduct;
         }
         BigDecimal productCost = productService.getProductCost(productSelection);
         if (!productService.hasSufficientFunds(productCost, funds)) {
-            VendProduct vendProduct = new VendProduct();
             vendProduct.setMessage("Insufficient Funds");
             return vendProduct;
         }
+        coinService.returnChange(productCost, funds);
 
         return null;
     }
