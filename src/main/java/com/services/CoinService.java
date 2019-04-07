@@ -2,6 +2,7 @@ package com.services;
 
 import com.models.Coin;
 import com.utilities.RoundValues;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static com.models.Coin.VALID_COINS;
 
+@Component
 public class CoinService {
 
 

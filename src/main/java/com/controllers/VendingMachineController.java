@@ -4,15 +4,19 @@ import com.models.Coin;
 import com.models.VendProduct;
 import com.services.CoinService;
 import com.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class VendingMachineController {
     private CoinService coinService;
     private ProductService productService;
 
+    @Autowired
     public VendingMachineController(CoinService coinService, ProductService productService) {
         this.coinService = coinService;
         this.productService = productService;

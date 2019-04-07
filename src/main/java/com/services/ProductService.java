@@ -2,10 +2,12 @@ package com.services;
 
 import com.Database.ProductDatabase;
 import com.models.Product;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Component
 public class ProductService {
 
     private ProductDatabase database;

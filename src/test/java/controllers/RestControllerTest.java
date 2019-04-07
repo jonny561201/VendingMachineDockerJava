@@ -1,44 +1,44 @@
 package controllers;
 
-import com.Application;
+import com.controllers.RestController;
+import com.controllers.VendingMachineController;
+import com.models.Coin;
+import com.models.RequestProduct;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Collections;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+import static com.models.Coin.DOLLAR;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
+@RunWith(MockitoJUnitRunner.class)
 public class RestControllerTest {
 
-    @LocalServerPort
-    private int port;
+    private VendingMachineController vendingMachineController;
+    private RestController controller;
 
-    private TestRestTemplate restTemplate = new TestRestTemplate();
-    private HttpHeaders headers = new HttpHeaders();
+    @Before
+    public void Setup() {
+        vendingMachineController = mock(VendingMachineController.class);
+        controller = new RestController(vendingMachineController);
+    }
 
     @Test
-    public void getProduct_ShouldReturnHelloWorld() {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+    public void purchaseProduct_ShouldCallVendingMachineControllerWithProduct() {
+        RequestProduct request = new RequestProduct();
+        List<Coin> insertedCoins = Collections.singletonList(DOLLAR);
+        String productLocation = "A1";
+        request.setInsertedCoins(insertedCoins);
+        request.setProductLocation(productLocation);
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/test"),
-                HttpMethod.GET, entity, String.class);
+        controller.purchaseProduct(request);
 
-        String body = response.getBody();
-
-        assertEquals("Hello World", body);
-    }
-
-    private String createURLWithPort(String uri) {
-        return "http://localhost:" + port + uri;
+        verify(vendingMachineController, Mockito.times(1)).purchase(productLocation, insertedCoins);
     }
 }
-
