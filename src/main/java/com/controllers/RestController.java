@@ -26,9 +26,9 @@ public class RestController {
     @PostMapping("/purchaseProduct")
     public VendProduct purchaseProduct(@RequestBody RequestProduct requestProduct) {
 
-        vendingMachineController.purchase(requestProduct.getProductLocation(), requestProduct.getInsertedCoins());
+        VendProduct purchase = vendingMachineController.purchase(requestProduct.getProductLocation(), requestProduct.getInsertedCoins());
 
-        return new VendProduct();
+        return purchase;
     }
 }
 
