@@ -16,7 +16,6 @@ public class RestController {
     @Autowired
     public RestController(VendingMachineController vendingMachineController) {
         this.vendingMachineController = vendingMachineController;
-
     }
 
     @GetMapping("/healthcheck")
@@ -26,9 +25,7 @@ public class RestController {
     @PostMapping("/purchaseProduct")
     public VendProduct purchaseProduct(@RequestBody RequestProduct requestProduct) {
 
-        VendProduct purchase = vendingMachineController.purchase(requestProduct.getProductLocation(), requestProduct.getInsertedCoins());
-
-        return purchase;
+        return vendingMachineController.purchase(requestProduct.getProductLocation(), requestProduct.getInsertedCoins());
     }
 }
 

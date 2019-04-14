@@ -29,6 +29,7 @@ public class RestControllerTest {
 
     @Before
     public void Setup() {
+        request = new RequestProduct();
         vendingMachineController = mock(VendingMachineController.class);
         controller = new RestController(vendingMachineController);
     }
@@ -45,7 +46,6 @@ public class RestControllerTest {
 
     @Test
     public void purchaseProduct_ShouldReturnVendProduct() {
-        request = new RequestProduct();
         request.setInsertedCoins(INSERTED_COINS);
         request.setProductLocation(PRODUCT_LOCATION);
         VendProduct expected = new VendProduct();
