@@ -11,8 +11,8 @@ function cleanupTempDir {
     echo "----------Deleted temp directory ----------"
 }
 
-function installFile {
-    echo "----------Installing $FILE_NAME----------"
+function downloadInstaller {
+    echo "----------Downloading $FILE_NAME----------"
     INSTALL_CMD="@powershell $FILE_PATH -NoProfile -ExecutionPolicy unrestricted"
     echo "$INSTALL_CMD"
     cmd //c $INSTALL_CMD
@@ -24,7 +24,7 @@ if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
 else
     echo "----------Created Directory: $WORK_DIR"
     curl -L -o $FILE_PATH https://s3.amazonaws.com/pgcentral/install.ps1
-    installFile
+    downloadInstaller
 fi
 
 
