@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-WORK_DIR=`mktemp -d -p "$DIR"`
+BOOTSTRAP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+WORK_DIR=`mktemp -d -p "$BOOTSTRAP_DIR"`
 FILE_NAME="PostGres.ps1"
 FILE_PATH="$WORK_DIR/$FILE_NAME"
 
@@ -14,7 +14,6 @@ function cleanupTempDir {
 function downloadInstaller {
     echo "----------Downloading $FILE_NAME----------"
     INSTALL_CMD="@powershell $FILE_PATH -NoProfile -ExecutionPolicy unrestricted"
-    echo "$INSTALL_CMD"
     cmd //c $INSTALL_CMD
 }
 

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 POSTGRES_VERSION="pg10"
 
 function installPostGres {
@@ -16,7 +15,7 @@ function startSqlService {
 }
 
 TEST="$(cd  "$(dirname "$0")" && pwd)"
-ROOT_DIR=${TEST}/../../
-cd ${ROOT_DIR}bigsql/
-#cmd //c $"pgc help"
+cd ${TEST} && cd ../bigsql
 
+installPostGres
+#startSqlService
