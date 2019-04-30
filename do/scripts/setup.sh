@@ -7,8 +7,11 @@ function setEnvVars {
 }
 
 function createDatabase {
-    PSQL_CMD="psql --help"
-    cmd //c $PSQL_CMD
+    PSQL_CONNECTION_CMD="psql -U postgreSQL"
+    cmd //c $PSQL_CONNECTION_CMD
+
+    CREATE_DB_CMD="psql CREATE DATABASE VendingMachine WITH ENCODING 'UTF8'"
+    cmd //c $CREATE_DB_CMD
 }
 
 setEnvVars
