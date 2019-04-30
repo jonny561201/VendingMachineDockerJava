@@ -1,21 +1,17 @@
 #!/bin/bash
 
-POSTGRES_VERSION="pg10"
 
-function installPostGres {
-    echo "----------Installing PostGres----------"
-    POSTGRES_INSTALL_CMD="pgc install $POSTGRES_VERSION"
-    cmd //c $POSTGRES_INSTALL_CMD
+function setEnvVars {
+    echo "----------Env Vars----------"
+    export PATH="$PATH:C:\Program Files\PostgreSQL\10\bin"
 }
 
-function startSqlService {
-    echo "----------Starting Sql Service----------"
-    START_CMD="pgc start $POSTGRES_VERSION"
-    cmd //c $START_CMD
+function createDatabase {
+    PSQL_CMD="psql --help"
+    cmd //c $PSQL_CMD
 }
 
-TEST="$(cd  "$(dirname "$0")" && pwd)"
-cd ${TEST} && cd ../bigsql
+setEnvVars
+createDatabase
 
-installPostGres
-#startSqlService
+
