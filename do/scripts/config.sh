@@ -4,6 +4,7 @@ WORK_DIR=`mktemp -d -p "$USERPROFILE"`
 FLYWAY_VERSION="5.2.4"
 FLYWAY_TEMP_DIR="$WORK_DIR\flyway.zip"
 FLYWAY_DIR="$USERPROFILE\flyway"
+FLYWAY_LOC="$FLYWAY_DIR\flyway-$FLYWAY_VERSION"
 
 function downloadFlyway {
     if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
@@ -20,6 +21,11 @@ function extractFlyway {
     unzip $FLYWAY_TEMP_DIR -d $FLYWAY_DIR
 }
 
+function setEnvVars {
+    echo "----------Flyway Env Vars----------"
+    export PATH=$PATH:$FLYWAY_LOC
+}
+
 function cleanupTempDir {
     echo "----------Cleanup Temp Dir----------"
     rm -rf $WORK_DIR
@@ -27,5 +33,6 @@ function cleanupTempDir {
 
 downloadFlyway
 extractFlyway
+setEnvVars
 
 trap cleanupTempDir EXIT
