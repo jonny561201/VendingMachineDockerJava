@@ -1,6 +1,8 @@
 #!/bin/bash
 
 WORK_DIR=`mktemp -d -p "$USERPROFILE"`
+PSQL_USER="postgres"
+PSQL_PASS="password"
 FLYWAY_VERSION="5.2.4"
 FLYWAY_TEMP_DIR="$WORK_DIR\flyway.zip"
 FLYWAY_DIR="$USERPROFILE\flyway"
@@ -26,6 +28,11 @@ function setEnvVars {
     export PATH=$PATH:$FLYWAY_LOC
 }
 
+function migrateDatabase {
+    echo "----------Migrating Database----------"
+    flyway migrate -user=$PSQL_USER -password=$PSQL_PASS -url="jdbc:postgresql://localhost:5432/vending_machine"
+}
+
 function cleanupTempDir {
     echo "----------Cleanup Temp Dir----------"
     rm -rf $WORK_DIR
@@ -34,5 +41,6 @@ function cleanupTempDir {
 downloadFlyway
 extractFlyway
 setEnvVars
+migrateDatabase
 
 trap cleanupTempDir EXIT
