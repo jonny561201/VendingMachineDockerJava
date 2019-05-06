@@ -38,9 +38,15 @@ function cleanupTempDir {
     rm -rf $WORK_DIR
 }
 
-downloadFlyway
-extractFlyway
-setEnvVars
-migrateDatabase
+if [[ $PATH == *"flyway"* ]]; then
+    echo "----------Flyway Already Installed----------"
+    migrateDatabase
+else
+    downloadFlyway
+    extractFlyway
+    setEnvVars
+    migrateDatabase
+fi
+
 
 trap cleanupTempDir EXIT
