@@ -20,5 +20,12 @@ function extractFlyway {
     unzip $FLYWAY_TEMP_DIR -d $FLYWAY_DIR
 }
 
+function cleanupTempDir {
+    echo "----------Cleanup Temp Dir----------"
+    rm -rf $WORK_DIR
+}
+
 downloadFlyway
 extractFlyway
+
+trap cleanupTempDir EXIT
