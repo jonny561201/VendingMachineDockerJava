@@ -3,6 +3,7 @@
 WORK_DIR=`mktemp -d -p "$USERPROFILE"`
 FLYWAY_VERSION="5.2.4"
 FLYWAY_TEMP_DIR="$WORK_DIR\flyway.zip"
+FLYWAY_DIR="$USERPROFILE\flyway"
 
 function downloadFlyway {
     if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
@@ -14,4 +15,10 @@ function downloadFlyway {
     fi
 }
 
+function extractFlyway {
+    echo "----------Extracting Flyway----------"
+    unzip $FLYWAY_TEMP_DIR -d $FLYWAY_DIR
+}
+
 downloadFlyway
+extractFlyway
