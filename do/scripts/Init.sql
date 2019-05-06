@@ -10,7 +10,7 @@ CREATE TABLE products (
 );
 
 INSERT INTO products (name, location, cost) values
-('Funyons', 'A1', 0.75),
+('Funyuns', 'A1', 0.75),
 ('Pepsi', 'B2', 1.25),
 ('Twix', 'C3', 0.75),
 ('Twizzlers', 'D5', 0.75),
