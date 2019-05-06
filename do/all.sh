@@ -17,6 +17,7 @@ if isAdmin $1
         echo "----------terminal is running as admin----------"
         source "$DIR/scripts/bootstrap.sh"
         source "$DIR/scripts/setup.sh"
+        source "$DIR/scripts/config.sh"
     else
         echo "Terminal must be running as Administrator. Open new terminal."
 fi
