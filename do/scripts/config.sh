@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DATABASE_VERSION="1.1"
+
+PRESENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 WORK_DIR=`mktemp -d -p "$USERPROFILE"`
 PSQL_USER="postgres"
 PSQL_PASS="password"
@@ -30,7 +33,10 @@ function setEnvVars {
 
 function migrateDatabase {
     echo "----------Migrating Database----------"
-    flyway migrate -user=$PSQL_USER -password=$PSQL_PASS -url="jdbc:postgresql://localhost:5432/vending_machine"
+    MIGRATIONS_DIR="filesystem:..\..\db\migration"
+    pushd $PRESENT_DIR
+    flyway migrate -user=$PSQL_USER -password=$PSQL_PASS -url="jdbc:postgresql://localhost:5432/vending_machine" -target=$DATABASE_VERSION -locations=$MIGRATIONS_DIR
+    popd
 }
 
 function cleanupTempDir {
