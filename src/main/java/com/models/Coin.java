@@ -15,6 +15,8 @@ public class Coin {
     public BigDecimal weight;
     public BigDecimal value;
 
+    public Coin() {}
+
     public Coin(double diameter, double weight, double value) {
         this.diameter = new BigDecimal(diameter);
         this.weight = new BigDecimal(weight);

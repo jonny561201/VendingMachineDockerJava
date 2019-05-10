@@ -2,6 +2,7 @@ package com.services;
 
 import com.Database.ProductDatabase;
 import com.models.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ public class ProductService {
     private ProductDatabase database;
     public Product selectedProduct;
 
+    @Autowired
     public ProductService(ProductDatabase database) {
         this.database = database;
     }
