@@ -52,7 +52,7 @@ public class RestControllerIT {
 //        VendProduct response = restTemplate.postForObject(
 //                createURLWithPort("/purchaseProduct"), requestProduct, VendProduct.class);
 
-//        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Pepsi", response.getBody().getProduct().getName());
     }
 
