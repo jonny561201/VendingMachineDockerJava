@@ -10,6 +10,6 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/acceptance",
         glue = {"acceptance/steps", "com.foreach.cuke"},
         snippets = SnippetType.CAMELCASE,
-        tags = {"@API"})
+        tags = {"@API, @DATABASE"})
 public class RunCukesIT {
 }

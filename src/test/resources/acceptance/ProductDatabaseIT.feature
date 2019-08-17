@@ -1,5 +1,6 @@
 Feature: Product Queries
 
+  @DATABASE
   Scenario: I can query the products table for items by location
 
     Given The database is stocked with items
