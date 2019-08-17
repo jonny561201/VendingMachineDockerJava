@@ -30,17 +30,6 @@ public class ProductConnection {
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(datasource());
-
-        return jdbcTemplate;
-    }
-
-    @Bean
-    public IProductDatabase iProductDatabase() {
-        ProductDatabase productDatabase = new ProductDatabase();
-        productDatabase.setJdbcTemplate(jdbcTemplate());
-
-        return productDatabase;
+        return new JdbcTemplate(datasource());
     }
 }
