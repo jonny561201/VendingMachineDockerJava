@@ -6,7 +6,6 @@ import com.services.CoinService;
 import com.services.ProductService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
@@ -29,7 +28,7 @@ public class VendingMachineControllerTest {
         coinService = mock(CoinService.class);
         productService = mock(ProductService.class);
         when(productService.isProductAvailable(PRODUCT_SELECTION)).thenReturn(true);
-
+        when(productService.hasSufficientFunds(any(), any())).thenReturn(true);
 
         controller = new VendingMachineController(coinService, productService);
     }
@@ -87,7 +86,6 @@ public class VendingMachineControllerTest {
     @Test
     public void purchase_ShouldCallReturnChange() {
         List<Coin> coins = Arrays.asList(DIME, DOLLAR);
-        when(productService.hasSufficientFunds(Mockito.any(), Mockito.any())).thenReturn(true);
 
         controller.purchase(PRODUCT_SELECTION, coins);
 

@@ -8,7 +8,10 @@ import com.models.VendProduct;
 import com.services.CoinService;
 import com.services.ProductService;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -27,6 +30,9 @@ public class VendingMachineControllerIT {
     private ProductService productService;
     private VendingMachineController controller;
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Before
     public void Setup() {
         coinService = new CoinService();
@@ -37,26 +43,28 @@ public class VendingMachineControllerIT {
 
     @Test
     public void purchase_ShouldReturnErrorMessageWhenInsufficientFundsSupplied() {
+        expectedException.expect(ResponseStatusException.class);
+        expectedException.expectMessage("Insufficient Funds");
+
         List<Coin> coins = Arrays.asList(DOLLAR, QUARTER);
         String productLocation = "G3";
         Product product = new Product();
         product.setCost(new BigDecimal(1.30));
         when(database.getProductsByLocation(productLocation)).thenReturn(Collections.singletonList(product));
 
-        VendProduct actual = controller.purchase(productLocation, coins);
-
-        assertEquals("Insufficient Funds", actual.getMessage());
+        controller.purchase(productLocation, coins);
     }
 
-    @Test
+    @Test()
     public void purchase_ShouldReturnErrorMessageWhenProductUnavailable() {
+        expectedException.expect(ResponseStatusException.class);
+        expectedException.expectMessage("Product Unavailable");
+
         List<Coin> coins = Arrays.asList(QUARTER, DIME);
         String productLocation = "B2";
         when(database.getProductsByLocation(productLocation)).thenReturn(Collections.emptyList());
 
-        VendProduct actual = controller.purchase(productLocation, coins);
-
-        assertEquals("Product Unavailable", actual.getMessage());
+        controller.purchase(productLocation, coins);
     }
 
     @Test
