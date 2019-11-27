@@ -8,6 +8,12 @@ public class VendProduct {
     private List<Coin> change;
     private Product product;
 
+    public VendProduct(String message, List<Coin> change, Product product) {
+        this.message = message;
+        this.change = change;
+        this.product = product;
+    }
+
     public String getMessage() {
         return message;
     }

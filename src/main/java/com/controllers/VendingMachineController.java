@@ -33,7 +33,7 @@ public class VendingMachineController {
         validatePurchase(productSelection, funds, productCost);
         var change = coinService.returnChange(productCost, funds);
 
-        return createResponse(change);
+        return new VendProduct("Thank You!", change, productService.selectedProduct);
     }
 
     private void validatePurchase(String productSelection, BigDecimal funds, BigDecimal productCost) {
@@ -45,11 +45,4 @@ public class VendingMachineController {
         }
     }
 
-    private VendProduct createResponse(List<Coin> change) {
-        var vendProduct = new VendProduct();
-        vendProduct.setChange(change);
-        vendProduct.setProduct(productService.selectedProduct);
-        vendProduct.setMessage("Thank You!");
-        return vendProduct;
-    }
 }
