@@ -26,12 +26,12 @@ public class CoinService {
     }
 
     public List<Coin> returnChange(BigDecimal productCost, BigDecimal funds) {
-        BigDecimal change = funds.subtract(productCost);
+        var change = funds.subtract(productCost);
         List<Coin> changeToReturn = new ArrayList<>();
 
         for (Coin coin : VALID_COINS) {
-            BigDecimal roundedCoinValue = RoundValues.round(coin.value);
-            while(roundedCoinValue.compareTo(RoundValues.round(change)) <= 0) {
+            var roundedCoinValue = RoundValues.round(coin.value);
+            while (roundedCoinValue.compareTo(RoundValues.round(change)) <= 0) {
                 change = RoundValues.round(change).subtract(roundedCoinValue);
                 changeToReturn.add(coin);
             }
@@ -44,8 +44,7 @@ public class CoinService {
                 && hasValidDimension(validCoin.weight, coinToValidate.weight);
     }
 
-    private static boolean hasValidDimension(BigDecimal validDimension, BigDecimal dimensionToCompare) {
-        return RoundValues.round(validDimension)
-                .equals(RoundValues.round(dimensionToCompare));
+    private static boolean hasValidDimension(BigDecimal validDimension, BigDecimal compareDimension) {
+        return RoundValues.round(validDimension).equals(RoundValues.round(compareDimension));
     }
 }
