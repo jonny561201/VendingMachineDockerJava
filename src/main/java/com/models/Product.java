@@ -8,7 +8,7 @@ public class Product {
     private String location;
 
     public BigDecimal getCost() {
-        return cost;
+        return this.cost == null ? BigDecimal.ZERO : cost;
     }
 
     public void setCost(BigDecimal cost) {
