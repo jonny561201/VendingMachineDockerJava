@@ -1,6 +1,6 @@
 package services;
 
-import com.Database.ProductDatabase;
+import com.repository.ProductDatabase;
 import com.models.Product;
 import com.services.ProductService;
 import org.junit.Before;

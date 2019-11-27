@@ -1,6 +1,6 @@
 package controllers;
 
-import com.Database.ProductDatabase;
+import com.repository.ProductDatabase;
 import com.controllers.VendingMachineController;
 import com.models.Coin;
 import com.models.Product;

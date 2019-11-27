@@ -1,7 +1,7 @@
 package acceptance.steps;
 
 import com.Application;
-import com.Database.ProductDatabase;
+import com.repository.ProductDatabase;
 import com.models.Coin;
 import com.models.Product;
 import com.models.RequestProduct;

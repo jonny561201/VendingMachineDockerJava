@@ -1,7 +1,7 @@
 package Database;
 
 import com.Application;
-import com.Database.ProductDatabase;
+import com.repository.ProductDatabase;
 import com.models.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
