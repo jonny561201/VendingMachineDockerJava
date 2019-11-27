@@ -25,13 +25,13 @@ public class VendingMachineController {
     }
 
     public VendProduct purchase(String productSelection, List<Coin> coins) {
-        List<Coin> validCoins = coins.stream()
+        var validCoins = coins.stream()
                 .filter(CoinService::isValidCoin)
                 .collect(Collectors.toList());
-        BigDecimal funds = coinService.countChange(validCoins);
-        BigDecimal productCost = productService.getProductCost(productSelection);
+        var funds = coinService.countChange(validCoins);
+        var productCost = productService.getProductCost(productSelection);
         validatePurchase(productSelection, funds, productCost);
-        List<Coin> change = coinService.returnChange(productCost, funds);
+        var change = coinService.returnChange(productCost, funds);
 
         return createResponse(change);
     }
@@ -46,7 +46,7 @@ public class VendingMachineController {
     }
 
     private VendProduct createResponse(List<Coin> change) {
-        VendProduct vendProduct = new VendProduct();
+        var vendProduct = new VendProduct();
         vendProduct.setChange(change);
         vendProduct.setProduct(productService.selectedProduct);
         vendProduct.setMessage("Thank You!");

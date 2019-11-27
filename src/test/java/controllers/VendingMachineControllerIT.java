@@ -46,9 +46,9 @@ public class VendingMachineControllerIT {
         expectedException.expect(ResponseStatusException.class);
         expectedException.expectMessage("Insufficient Funds");
 
-        List<Coin> coins = Arrays.asList(DOLLAR, QUARTER);
-        String productLocation = "G3";
-        Product product = new Product();
+        var coins = Arrays.asList(DOLLAR, QUARTER);
+        var productLocation = "G3";
+        var product = new Product();
         product.setCost(new BigDecimal(1.30));
         when(database.getProductsByLocation(productLocation)).thenReturn(Collections.singletonList(product));
 
@@ -60,8 +60,8 @@ public class VendingMachineControllerIT {
         expectedException.expect(ResponseStatusException.class);
         expectedException.expectMessage("Product Unavailable");
 
-        List<Coin> coins = Arrays.asList(QUARTER, DIME);
-        String productLocation = "B2";
+        var coins = Arrays.asList(QUARTER, DIME);
+        var productLocation = "B2";
         when(database.getProductsByLocation(productLocation)).thenReturn(Collections.emptyList());
 
         controller.purchase(productLocation, coins);
@@ -69,43 +69,43 @@ public class VendingMachineControllerIT {
 
     @Test
     public void purchase_ShouldReturnChangeWhenProductIsAbleToBePurchased() {
-        String productLocation = "D5";
-        List<Coin> coins = Arrays.asList(DIME, QUARTER);
-        Product product = new Product();
+        var productLocation = "D5";
+        var coins = Arrays.asList(DIME, QUARTER);
+        var product = new Product();
         product.setCost(QUARTER.value);
-        List<Product> products = Collections.singletonList(product);
+        var products = Collections.singletonList(product);
         when(database.getProductsByLocation(productLocation)).thenReturn(products);
 
-        VendProduct actual = controller.purchase(productLocation, coins);
+        var actual = controller.purchase(productLocation, coins);
 
-        List<Coin> expected = Collections.singletonList(DIME);
+        var expected = Collections.singletonList(DIME);
         assertEquals(expected, actual.getChange());
     }
 
     @Test
     public void purchase_ShouldReturnSuccessMessageWhenProductIsAbleToBePurchased() {
-        String productLocation = "D5";
-        List<Coin> coins = Arrays.asList(DIME, QUARTER);
-        Product product = new Product();
+        var productLocation = "D5";
+        var coins = Arrays.asList(DIME, QUARTER);
+        var product = new Product();
         product.setCost(QUARTER.value);
-        List<Product> products = Collections.singletonList(product);
+        var products = Collections.singletonList(product);
         when(database.getProductsByLocation(productLocation)).thenReturn(products);
 
-        VendProduct actual = controller.purchase(productLocation, coins);
+        var actual = controller.purchase(productLocation, coins);
 
         assertEquals("Thank You!", actual.getMessage());
     }
 
     @Test
     public void purchase_ShouldReturnProductWhenProductIsAbleToBePurchased() {
-        String productLocation = "D5";
-        List<Coin> coins = Arrays.asList(DIME, QUARTER);
-        Product product = new Product();
+        var productLocation = "D5";
+        var coins = Arrays.asList(DIME, QUARTER);
+        var product = new Product();
         product.setCost(QUARTER.value);
-        List<Product> products = Collections.singletonList(product);
+        var products = Collections.singletonList(product);
         when(database.getProductsByLocation(productLocation)).thenReturn(products);
 
-        VendProduct actual = controller.purchase(productLocation, coins);
+        var actual = controller.purchase(productLocation, coins);
 
         assertEquals(product, actual.getProduct());
     }
