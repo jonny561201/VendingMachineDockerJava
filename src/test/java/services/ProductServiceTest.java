@@ -29,62 +29,62 @@ public class ProductServiceTest {
     @Test
     public void isProductAvailable_ShouldReturnFalseWhenProductUnavailable() {
         List<Product> products = new ArrayList<>();
-        String productLocation = "G12";
+        var productLocation = "G12";
         when(mockDatabase.getProductsByLocation(productLocation)).thenReturn(products);
 
-        boolean actual = service.isProductAvailable(productLocation);
+        var actual = service.isProductAvailable(productLocation);
 
         assertFalse(actual);
     }
 
     @Test
     public void isProductAvailable_ShouldReturnTrueWhenProductAvailable() {
-        List<Product> products = Collections.singletonList(new Product());
-        String productLocation = "G12";
+        var products = Collections.singletonList(new Product());
+        var productLocation = "G12";
         when(mockDatabase.getProductsByLocation(productLocation)).thenReturn(products);
 
-        boolean actual = service.isProductAvailable(productLocation);
+        var actual = service.isProductAvailable(productLocation);
 
         assertTrue(actual);
     }
 
     @Test
     public void getProductCost_ShouldReturnProductCost() {
-        String productLocation = "A0";
-        BigDecimal expected = new BigDecimal("0.75");
-        Product product = new Product();
+        var productLocation = "A0";
+        var expected = new BigDecimal("0.75");
+        var product = new Product();
         product.setCost(expected);
-        List<Product> products = Collections.singletonList(product);
+        var products = Collections.singletonList(product);
         when(mockDatabase.getProductsByLocation(productLocation)).thenReturn(products);
 
-        BigDecimal actual = service.getProductCost(productLocation);
+        var actual = service.getProductCost(productLocation);
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getProductCost_ShouldReturnProductCostForDifferentProduct() {
-        String productLocation = "A1";
-        BigDecimal expected = new BigDecimal("0.95");
-        Product product = new Product();
+        var productLocation = "A1";
+        var expected = new BigDecimal("0.95");
+        var product = new Product();
         product.setCost(expected);
-        List<Product> products = Collections.singletonList(product);
+        var products = Collections.singletonList(product);
         when(mockDatabase.getProductsByLocation(productLocation)).thenReturn(products);
 
-        BigDecimal actual = service.getProductCost(productLocation);
+        var actual = service.getProductCost(productLocation);
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getProductCost_ShouldNotCallDatabaseIfCostCached() {
-        String productLocation = "A4";
-        BigDecimal cost = new BigDecimal(0.50);
-        Product product = new Product();
+        var productLocation = "A4";
+        var cost = new BigDecimal(0.50);
+        var product = new Product();
         product.setCost(cost);
         service.selectedProduct = product;
 
-        BigDecimal actual = service.getProductCost(productLocation);
+        var actual = service.getProductCost(productLocation);
 
         verify(mockDatabase, times(0)).getProductsByLocation(productLocation);
         assertEquals(cost, actual);
@@ -92,8 +92,8 @@ public class ProductServiceTest {
 
     @Test
     public void hasSufficientFunds_ShouldReturnFalseWhenCostIsGreaterThanFunds() {
-        BigDecimal productCost = new BigDecimal(1.00);
-        BigDecimal funds = new BigDecimal(0.75);
+        var productCost = new BigDecimal(1.00);
+        var funds = new BigDecimal(0.75);
 
         boolean actual = service.hasSufficientFunds(productCost, funds);
 
@@ -102,20 +102,20 @@ public class ProductServiceTest {
 
     @Test
     public void hasSufficientFunds_ShouldReturnTrueWhenFundsAreGreaterThanCost() {
-        BigDecimal productCost = new BigDecimal(1.00);
-        BigDecimal funds = new BigDecimal(1.75);
+        var productCost = new BigDecimal(1.00);
+        var funds = new BigDecimal(1.75);
 
-        boolean actual = service.hasSufficientFunds(productCost, funds);
+        var actual = service.hasSufficientFunds(productCost, funds);
 
         assertTrue(actual);
     }
 
     @Test
     public void hasSufficientFunds_ShouldReturnTrueWhenFundsAreEqualToCost() {
-        BigDecimal productCost = new BigDecimal(1.00);
-        BigDecimal funds = new BigDecimal(1.00);
+        var productCost = new BigDecimal(1.00);
+        var funds = new BigDecimal(1.00);
 
-        boolean actual = service.hasSufficientFunds(productCost, funds);
+        var actual = service.hasSufficientFunds(productCost, funds);
 
         assertTrue(actual);
     }

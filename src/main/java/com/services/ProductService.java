@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Component
 public class ProductService {
@@ -20,7 +19,7 @@ public class ProductService {
     }
 
     public boolean isProductAvailable(String productLocation) {
-        List<Product> productsByLocation = database.getProductsByLocation(productLocation);
+        var productsByLocation = database.getProductsByLocation(productLocation);
         selectedProduct = productsByLocation.stream().findFirst().orElse(null);
         return productsByLocation.stream().findAny().isPresent();
     }
@@ -28,9 +27,9 @@ public class ProductService {
     public BigDecimal getProductCost(String productLocation) {
         return selectedProduct != null
                 ? selectedProduct.getCost()
-                :database.getProductsByLocation(productLocation).stream()
-                    .findFirst().get()
-                    .getCost();
+                : database.getProductsByLocation(productLocation).stream()
+                .findFirst().get()
+                .getCost();
     }
 
     public boolean hasSufficientFunds(BigDecimal productCost, BigDecimal funds) {
