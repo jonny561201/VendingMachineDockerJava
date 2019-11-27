@@ -77,6 +77,15 @@ public class ProductServiceTest {
     }
 
     @Test
+    public void getProductCost_ShouldReturnDefaultCostOfZeroWhenNoProduct() {
+        var productLocation = "A1";
+        when(mockDatabase.getProductsByLocation(productLocation)).thenReturn(Collections.EMPTY_LIST);
+        var actual = service.getProductCost(productLocation);
+
+        assertEquals(BigDecimal.ZERO, actual);
+    }
+
+    @Test
     public void getProductCost_ShouldNotCallDatabaseIfCostCached() {
         var productLocation = "A4";
         var cost = new BigDecimal(0.50);
