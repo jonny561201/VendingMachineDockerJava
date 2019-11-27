@@ -14,6 +14,8 @@ public class VendProduct {
         this.product = product;
     }
 
+    public VendProduct() {}
+
     public String getMessage() {
         return message;
     }
