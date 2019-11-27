@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static com.models.Coin.*;
 import static org.mockito.Mockito.*;
@@ -35,7 +34,7 @@ public class VendingMachineControllerTest {
 
     @Test
     public void purchase_ShouldCallCountChange() {
-        List<Coin> coins = Collections.singletonList(QUARTER);
+        var coins = Collections.singletonList(QUARTER);
 
         controller.purchase(PRODUCT_SELECTION, coins);
 
@@ -44,8 +43,8 @@ public class VendingMachineControllerTest {
 
     @Test
     public void purchase_ShouldRejectInvalidCoins() {
-        Coin invalidCoin = new Coin(99.0, 99.0, 5.0);
-        List<Coin> coins = Arrays.asList(DOLLAR, invalidCoin);
+        var invalidCoin = new Coin(99.0, 99.0, 5.0);
+        var coins = Arrays.asList(DOLLAR, invalidCoin);
 
         controller.purchase(PRODUCT_SELECTION, coins);
 
@@ -54,7 +53,7 @@ public class VendingMachineControllerTest {
 
     @Test
     public void purchase_ShouldCallServiceToValidateProductCost() {
-        List<Coin> coins = Collections.singletonList(DIME);
+        var coins = Collections.singletonList(DIME);
 
         controller.purchase(PRODUCT_SELECTION, coins);
 
@@ -63,7 +62,7 @@ public class VendingMachineControllerTest {
 
     @Test
     public void purchase_ShouldCallServiceToValidateProductAvailability() {
-        List<Coin> coins = Collections.singletonList(DIME);
+        var coins = Collections.singletonList(DIME);
 
         controller.purchase(PRODUCT_SELECTION, coins);
 
@@ -72,10 +71,10 @@ public class VendingMachineControllerTest {
 
     @Test
     public void purchase_ShouldCallServiceSufficientFunds() {
-        List<Coin> coins = Arrays.asList(DIME, DOLLAR);
-        BigDecimal funds = new BigDecimal(1.15);
+        var coins = Arrays.asList(DIME, DOLLAR);
+        var funds = new BigDecimal(1.15);
         when(coinService.countChange(coins)).thenReturn(funds);
-        BigDecimal productCost = new BigDecimal(1.10);
+        var productCost = new BigDecimal(1.10);
         when(productService.getProductCost(PRODUCT_SELECTION)).thenReturn(productCost);
 
         controller.purchase(PRODUCT_SELECTION, coins);
@@ -85,7 +84,7 @@ public class VendingMachineControllerTest {
 
     @Test
     public void purchase_ShouldCallReturnChange() {
-        List<Coin> coins = Arrays.asList(DIME, DOLLAR);
+        var coins = Arrays.asList(DIME, DOLLAR);
 
         controller.purchase(PRODUCT_SELECTION, coins);
 
