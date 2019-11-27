@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class RoundValuesTest {
 
@@ -35,4 +35,12 @@ public class RoundValuesTest {
         assertEquals(expectedValue, actual);
     }
 
+    @Test
+    public void round_ShouldRoundValueEqualToFiveUp() {
+        var valueToRound = new BigDecimal("2.445");
+        var actual = RoundValues.round(valueToRound);
+
+        var expectedValue = new BigDecimal("2.45");
+        assertEquals(expectedValue, actual);
+    }
 }
