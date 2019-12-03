@@ -40,11 +40,7 @@ public class CoinService {
     }
 
     private static boolean hasValidDimensions(Coin validCoin, Coin coinToValidate) {
-        return hasValidDimension(validCoin.diameter, coinToValidate.diameter)
-                && hasValidDimension(validCoin.weight, coinToValidate.weight);
-    }
-
-    private static boolean hasValidDimension(BigDecimal validDimension, BigDecimal compareDimension) {
-        return RoundValues.round(validDimension).equals(RoundValues.round(compareDimension));
+        return RoundValues.round(validCoin.diameter).equals(RoundValues.round(coinToValidate.diameter))
+        && RoundValues.round(validCoin.weight).equals(RoundValues.round(coinToValidate.weight));
     }
 }
