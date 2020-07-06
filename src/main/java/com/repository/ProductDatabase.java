@@ -14,9 +14,12 @@ public class ProductDatabase implements IProductDatabase {
     private static final String BATCH_INSERT = "INSERT into products (name, location, cost) values ";
     private static final String SELECT_PRODUCT = "SELECT * FROM products WHERE location = ?";
     private static final String DELETE_PRODUCT = "DELETE FROM products WHERE location = ?";
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public ProductDatabase(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<Product> getProductsByLocation(String productLocation) {
         return jdbcTemplate.query(SELECT_PRODUCT, new Object[]{productLocation}, new BeanPropertyRowMapper<>(Product.class));
