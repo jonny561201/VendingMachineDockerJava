@@ -44,5 +44,4 @@ public class VendingMachineController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient Funds");
         }
     }
-
 }

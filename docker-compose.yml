@@ -13,7 +13,7 @@ services:
   flyway:
     image: "boxfuse/flyway:5.2.4"
     volumes:
-    - /c/Users/g825714/MyProjects/VendingMachineDockerJava/docker/flyway/db/migration:/flyway/sql
+    - ./docker/flyway/db/migration:/flyway/sql
     command: -url=jdbc:postgresql://db:5432/vending_machine -user=postgres -password=password -connectRetries=60 migrate
     depends_on:
     - db
