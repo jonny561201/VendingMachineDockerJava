@@ -114,6 +114,13 @@ public class CoinServiceTest {
     }
 
     @Test
+    public void countChange_ShouldReturnZeroWhenListNull() {
+        var actual = coinService.countChange(null);
+
+        assertEquals(BigDecimal.ZERO, actual);
+    }
+
+    @Test
     public void returnCorrectChange_ShouldReturnASingleCoin() {
         var productCost = new BigDecimal(1.00);
         var funds = new BigDecimal(1.05);

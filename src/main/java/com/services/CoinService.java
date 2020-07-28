@@ -5,8 +5,8 @@ import com.utilities.RoundValues;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static com.models.Coin.VALID_COINS;
 
@@ -19,7 +19,7 @@ public class CoinService {
     }
 
     public BigDecimal countChange(List<Coin> coins) {
-        return coins.stream()
+        return Optional.ofNullable(coins).stream().flatMap(Collection::stream)
                 .map(x -> x.value)
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
