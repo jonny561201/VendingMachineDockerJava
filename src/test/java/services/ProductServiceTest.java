@@ -88,7 +88,7 @@ public class ProductServiceTest {
     @Test
     public void getProductCost_ShouldNotCallDatabaseIfCostCached() {
         var productLocation = "A4";
-        var cost = new BigDecimal(0.50);
+        var cost = new BigDecimal("0.50");
         var product = new Product();
         product.setCost(cost);
         service.selectedProduct = product;
@@ -101,8 +101,8 @@ public class ProductServiceTest {
 
     @Test
     public void hasSufficientFunds_ShouldReturnFalseWhenCostIsGreaterThanFunds() {
-        var productCost = new BigDecimal(1.00);
-        var funds = new BigDecimal(0.75);
+        var productCost = new BigDecimal("1.00");
+        var funds = new BigDecimal("0.75");
 
         boolean actual = service.hasSufficientFunds(productCost, funds);
 
@@ -111,8 +111,8 @@ public class ProductServiceTest {
 
     @Test
     public void hasSufficientFunds_ShouldReturnTrueWhenFundsAreGreaterThanCost() {
-        var productCost = new BigDecimal(1.00);
-        var funds = new BigDecimal(1.75);
+        var productCost = new BigDecimal("1.00");
+        var funds = new BigDecimal("1.75");
 
         var actual = service.hasSufficientFunds(productCost, funds);
 
@@ -121,8 +121,8 @@ public class ProductServiceTest {
 
     @Test
     public void hasSufficientFunds_ShouldReturnTrueWhenFundsAreEqualToCost() {
-        var productCost = new BigDecimal(1.00);
-        var funds = new BigDecimal(1.00);
+        var productCost = new BigDecimal("1.00");
+        var funds = new BigDecimal("1.00");
 
         var actual = service.hasSufficientFunds(productCost, funds);
 

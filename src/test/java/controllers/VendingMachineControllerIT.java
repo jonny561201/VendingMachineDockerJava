@@ -49,7 +49,7 @@ public class VendingMachineControllerIT {
         var coins = Arrays.asList(DOLLAR, QUARTER);
         var productLocation = "G3";
         var product = new Product();
-        product.setCost(new BigDecimal(1.30));
+        product.setCost(new BigDecimal("1.30"));
         when(database.getProductsByLocation(productLocation)).thenReturn(Collections.singletonList(product));
 
         controller.purchase(productLocation, coins);

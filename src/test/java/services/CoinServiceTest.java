@@ -122,8 +122,8 @@ public class CoinServiceTest {
 
     @Test
     public void returnCorrectChange_ShouldReturnASingleCoin() {
-        var productCost = new BigDecimal(1.00);
-        var funds = new BigDecimal(1.05);
+        var productCost = new BigDecimal("1.00");
+        var funds = new BigDecimal("1.05");
 
         var actual = coinService.returnChange(productCost, funds);
 
@@ -133,8 +133,8 @@ public class CoinServiceTest {
 
     @Test
     public void returnCorrectChange_ShouldReturnAMultipleCoins() {
-        var productCost = new BigDecimal(1.00);
-        var funds = new BigDecimal(1.40);
+        var productCost = new BigDecimal("1.00");
+        var funds = new BigDecimal("1.40");
 
         var actual = coinService.returnChange(productCost, funds);
 
@@ -152,8 +152,8 @@ public class CoinServiceTest {
 
     @Test
     public void returnCorrectChange_ShouldReturnAMultipleCoinsOfDuplicateDenominations() {
-        var productCost = new BigDecimal(1.00);
-        var funds = new BigDecimal(1.75);
+        var productCost = new BigDecimal("1.00");
+        var funds = new BigDecimal("1.75");
 
         var actual = coinService.returnChange(productCost, funds);
 
