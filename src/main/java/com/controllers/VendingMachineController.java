@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,7 +27,7 @@ public class VendingMachineController {
     }
 
     public VendProduct purchase(String productSelection, List<Coin> coins) {
-        var validCoins = coins.stream()
+        var validCoins = Optional.ofNullable(coins).stream().flatMap(Collection::stream)
                 .filter(CoinService::isValidCoin)
                 .collect(Collectors.toList());
         var funds = coinService.countChange(validCoins);

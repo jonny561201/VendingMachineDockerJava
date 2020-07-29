@@ -1,10 +1,8 @@
 package controllers;
 
-import com.repository.ProductDatabase;
 import com.controllers.VendingMachineController;
-import com.models.Coin;
 import com.models.Product;
-import com.models.VendProduct;
+import com.repository.ProductDatabase;
 import com.services.CoinService;
 import com.services.ProductService;
 import org.junit.Before;
@@ -16,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static com.models.Coin.*;
 import static org.junit.Assert.assertEquals;
@@ -53,6 +50,19 @@ public class VendingMachineControllerIT {
         when(database.getProductsByLocation(productLocation)).thenReturn(Collections.singletonList(product));
 
         controller.purchase(productLocation, coins);
+    }
+
+    @Test
+    public void purchase_ShouldReturnErrorMessageWhenNullMoney() {
+        expectedException.expect(ResponseStatusException.class);
+        expectedException.expectMessage("Insufficient Funds");
+
+        var productLocation = "G3";
+        var product = new Product();
+        product.setCost(new BigDecimal("1.30"));
+        when(database.getProductsByLocation(productLocation)).thenReturn(Collections.singletonList(product));
+
+        controller.purchase(productLocation, null);
     }
 
     @Test()
